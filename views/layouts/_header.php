@@ -26,6 +26,7 @@ $items = [
         'url' => ['/site/login'],
         'visible' => Yii::$app->user->isGuest,
     ],
+    ['label' => 'Danh sách sách', 'url' => ['/sach/index']],
     [
         'label' => 'Logout (' . Html::encode(Yii::$app->user->identity?->username ?? '') . ')',
         'url' => ['/site/logout'],
