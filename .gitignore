@@ -1,36 +1,36 @@
-# phpstorm project files
-.idea
 
-# visual studio code project files
-.vscode
-
-# netbeans project files
-nbproject
-
-# zend studio for eclipse project files
+# IDE
+.idea/
+.vscode/
+nbproject/
 .buildpath
 .project
-.settings
+.settings/
 
-# windows thumbnail cache
+# Windows và macOS
 Thumbs.db
-
-# composer vendor dir
-/vendor
-
-# composer itself is not needed
-composer.phar
-
-# Mac DS_Store Files
 .DS_Store
 
-# phpunit itself is not needed
-phpunit.phar
-# local phpunit config
+# Composer
+/vendor/
+/composer.phar
+
+# PHPUnit
+/phpunit.phar
 /phpunit.xml
+/tests/_output/*
+/tests/_support/_generated/
 
-tests/_output/*
-tests/_support/_generated
+# Vagrant
+/.vagrant/
 
-#vagrant folder
-/.vagrant
+# Yii 2 - Du lieu tam
+/runtime/*
+!/runtime/.gitignore
+
+/web/assets/*
+!/web/assets/.gitignore
+
+# Thong tin bi mat
+.env
+.env.*
