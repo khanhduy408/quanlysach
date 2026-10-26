@@ -9,23 +9,7 @@ use yii\bootstrap5\NavBar;
 use yii\helpers\Html;
 
 $items = [
-    [
-        'label' => 'Home',
-        'url' => ['/site/index'],
-    ],
-    [
-        'label' => 'About',
-        'url' => ['/site/about'],
-    ],
-    [
-        'label' => 'Contact',
-        'url' => ['/site/contact'],
-    ],
-    [
-        'label' => 'Login',
-        'url' => ['/site/login'],
-        'visible' => Yii::$app->user->isGuest,
-    ],
+  
     ['label' => 'Danh sách sách', 'url' => ['/sach/index']],
     [
         'label' => 'Logout (' . Html::encode(Yii::$app->user->identity?->username ?? '') . ')',
@@ -42,7 +26,7 @@ $items = [
 <header id="header">
     <?php NavBar::begin(
         [
-            'brandLabel' => Yii::$app->name,
+            'brandLabel' => 'Trang chủ',
             'brandUrl' => Yii::$app->homeUrl,
             'options' => ['class' => 'navbar-expand-md navbar-dark bg-dark fixed-top']
         ],

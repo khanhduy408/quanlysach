@@ -12,16 +12,20 @@ use yii\base\Security;
  * LoginForm is the model behind the login form.
  *
  * @property-read User|null $user
- *
+ */
 class LoginForm extends Model
 {
     public string $username = '';
     public string $password = '';
     public bool $rememberMe = true;
+
     private User|null $_user = null;
     private bool $_userLoaded = false;
-    public function __construct(private readonly Security $security, $config = [])
-    {
+
+    public function __construct(
+        private readonly Security $security,
+        $config = []
+    ) {
         parent::__construct($config);
     }
 
@@ -31,55 +35,69 @@ class LoginForm extends Model
     public function rules(): array
     {
         return [
-            // username and password are both required
+            // Username và password bắt buộc nhập
             [['username', 'password'], 'required'],
-            // rememberMe must be a boolean value
+
+            // RememberMe phải là kiểu boolean
             ['rememberMe', 'boolean'],
-            // password is validated by validatePassword()
+
+            // Kiểm tra mật khẩu
             ['password', 'validatePassword'],
         ];
     }
 
     /**
-     * Validates the password.
-     * This method serves as the inline validation for password.
-     *
-     * @param string $attribute the attribute currently being validated
-     * @param array $params the additional name-value pairs given in the rule
+     * Kiểm tra mật khẩu người dùng.
      */
-    public function validatePassword(string $attribute, array|null $params): void
-    {
+    public function validatePassword(
+        string $attribute,
+        array|null $params
+    ): void {
         if (!$this->hasErrors()) {
             $user = $this->getUser();
 
-            if (!$user || !$this->security->validatePassword($this->password, $user->passwordHash)) {
-                $this->addError($attribute, 'Incorrect username or password.');
+            if (
+                !$user ||
+                !$this->security->validatePassword(
+                    $this->password,
+                    $user->passwordHash
+                )
+            ) {
+                $this->addError(
+                    $attribute,
+                    'Incorrect username or password.'
+                );
             }
         }
     }
 
     /**
-     * Logs in a user using the provided username and password.
-     * @return bool whether the user is logged in successfully
+     * Đăng nhập người dùng.
      */
     public function login(): bool
     {
         if ($this->validate()) {
-            return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
+            return Yii::$app->user->login(
+                $this->getUser(),
+                $this->rememberMe ? 3600 * 24 * 30 : 0
+            );
         }
 
         return false;
     }
 
     /**
-     * Finds user by [[username]]
+     * Tìm người dùng theo username.
      *
      * @return User|null
      */
     public function getUser(): User|null
     {
         if (!$this->_userLoaded) {
-            $this->_user = User::findByUsername($this->username);
+            $this->_user = User::findByUsername(
+                $this->username
+            );
+
             $this->_userLoaded = true;
         }
 

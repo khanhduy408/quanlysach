@@ -7,6 +7,13 @@ $this->title = 'Danh sách sách';
 
 <div class="container mt-4">
     <h2 class="mb-4">DANH SÁCH SÁCH</h2>
+    <div class="mb-3 text-end">
+    <?= Html::a(
+        'Thêm sách mới',
+        ['create'],
+        ['class' => 'btn btn-primary btn-lg px-4']
+    ) ?>
+</div>
 
     <div class="table-responsive">
         <table class="table table-bordered table-striped table-hover align-middle">
@@ -22,13 +29,14 @@ $this->title = 'Danh sách sách';
                     <th>Số trang</th>
                     <th>Giá bìa</th>
                     <th>Số lượng</th>
+                    <th>Thao tác</th>
                 </tr>
             </thead>
 
             <tbody>
                 <?php if (empty($danhSach)): ?>
                     <tr>
-                        <td colspan="10" class="text-center">
+                        <td colspan="11" class="text-center">
                             Chưa có sách nào trong hệ thống.
                         </td>
                     </tr>
@@ -56,7 +64,7 @@ $this->title = 'Danh sách sách';
                                         rawurlencode(basename($sach->hinh_anh)),
                                         [
                                             'alt' => $sach->nhan_de,
-                                            'style' => 'width: 80px; height: 110px; object-fit: cover;',
+                                            'style' => 'width: 120px; height: 150px; object-fit: cover;',
                                             'class' => 'rounded border'
                                         ]
                                     ) ?>
@@ -79,6 +87,16 @@ $this->title = 'Danh sách sách';
                             </td>
 
                             <td><?= Html::encode($sach->so_luong) ?></td>
+                            <td class="text-center">
+                                <?= Html::a(
+                                    'Xem',
+                                    ['view', 'id' => $sach->ma_sach],
+                                    [
+                                        'class' => 'btn btn-primary px-4 py-2 fw-semibold',
+                                        'style' => 'font-size: 12px; white-space: nowrap;'
+                                    ]
+                                ) ?>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 <?php endif; ?>
