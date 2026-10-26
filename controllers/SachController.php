@@ -6,6 +6,7 @@ use yii\web\NotFoundHttpException;
 use yii\helpers\ArrayHelper;
 use app\models\Sach;
 use app\models\LoaiSach;
+use yii\web\UploadedFile;
 
 class SachController extends Controller
 {
@@ -71,4 +72,81 @@ class SachController extends Controller
             'loaiSach' => $loaiSach
         ]);
     }
+
+    
+    // Sửa thông tin sách
+    public function actionUpdate($id)
+    {
+        // Tìm sách theo mã sách hiện tại
+        $model = Sach::findOne(['ma_sach' => $id]);
+
+        if ($model === null) {
+            throw new NotFoundHttpException(
+                'Không tìm thấy sách cần sửa.'
+            );
+        }
+
+        // Lấy danh sách loại sách để hiển thị trong dropdown
+        $loaiSach = ArrayHelper::map(
+            LoaiSach::find()
+                ->orderBy(['ten_loai' => SORT_ASC])
+                ->all(),
+            'ma_loai',
+            'ten_loai'
+        );
+
+        // Nhận dữ liệu khi người dùng nhấn nút lưu
+        if ($model->load(Yii::$app->request->post())) {
+
+            // Lấy file ảnh mới nếu người dùng chọn
+            $model->fileAnh = UploadedFile::getInstance(
+                $model,
+                'fileAnh'
+            );
+
+            // Kiểm tra dữ liệu trước khi cập nhật
+            if ($model->validate()) {
+
+                // Chỉ thay ảnh nếu người dùng đã chọn ảnh mới
+                if ($model->fileAnh !== null) {
+                    $tenFile = 'sach_'
+                        . date('YmdHis')
+                        . '_'
+                        . Yii::$app->security->generateRandomString(8)
+                        . '.'
+                        . $model->fileAnh->extension;
+
+                    $duongDan = Yii::getAlias(
+                        '@webroot/images/' . $tenFile
+                    );
+
+                    if ($model->fileAnh->saveAs($duongDan)) {
+                        $model->hinh_anh = $tenFile;
+                    } else {
+                        $model->addError(
+                            'fileAnh',
+                            'Không thể lưu ảnh. Vui lòng thử lại.'
+                        );
+                    }
+                }
+
+                // Lưu thông tin sau khi kiểm tra thành công
+                if (!$model->hasErrors() && $model->save(false)) {
+                    Yii::$app->session->setFlash(
+                        'success',
+                        'Cập nhật thông tin sách thành công!'
+                    );
+
+                    return $this->redirect(['index']);
+                }
+            }
+        }
+
+        // Hiển thị biểu mẫu chỉnh sửa
+        return $this->render('update', [
+            'model' => $model,
+            'loaiSach' => $loaiSach,
+        ]);
+    }
+
 }

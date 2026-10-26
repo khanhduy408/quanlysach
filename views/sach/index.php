@@ -7,6 +7,21 @@ $this->title = 'Danh sách sách';
 
 <div class="container mt-4">
     <h2 class="mb-4">DANH SÁCH SÁCH</h2>
+    
+        <?php if (Yii::$app->session->hasFlash('success')): ?>
+            <div class="alert alert-success alert-dismissible fade show"
+                role="alert">
+                <?= Html::encode(
+                    Yii::$app->session->getFlash('success')
+                ) ?>
+
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="alert"
+                        aria-label="Đóng"></button>
+            </div>
+        <?php endif; ?>
+
     <div class="mb-3 text-end">
     <?= Html::a(
         'Thêm sách mới',
@@ -88,14 +103,30 @@ $this->title = 'Danh sách sách';
 
                             <td><?= Html::encode($sach->so_luong) ?></td>
                             <td class="text-center">
+                                
+                            <div class="d-flex flex-column gap-2">
+
                                 <?= Html::a(
                                     'Xem',
                                     ['view', 'id' => $sach->ma_sach],
                                     [
-                                        'class' => 'btn btn-primary px-4 py-2 fw-semibold',
-                                        'style' => 'font-size: 12px; white-space: nowrap;'
+                                        'class' => 'btn btn-primary',
+                                        'style' => 'font-size: 12px;'
                                     ]
                                 ) ?>
+
+                                <?= Html::a(
+                                    'Sửa',
+                                    ['update', 'id' => $sach->ma_sach],
+                                    [
+                                        'class' => 'btn btn-warning',
+                                        'style' => 'font-size: 12px;',
+                                        'data-pjax' => '0'
+                                    ]
+                                ) ?>
+
+                            </div>
+
                             </td>
                         </tr>
                     <?php endforeach; ?>
