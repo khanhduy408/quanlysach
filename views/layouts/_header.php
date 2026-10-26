@@ -10,17 +10,24 @@ use yii\helpers\Html;
 
 $items = [
   
-    ['label' => 'Danh sách sách', 'url' => ['/sach/index']],
     [
-        'label' => 'Logout (' . Html::encode(Yii::$app->user->identity?->username ?? '') . ')',
-        'url' => ['/site/logout'],
-        'linkOptions' => [
-            'data-method' => 'post',
-            'class' => 'nav-link logout',
-        ],
-        'visible' => !Yii::$app->user->isGuest,
+        'label' => 'Danh sách sách',
+        'url' => ['/sach/index'],
     ],
-];
+    [
+        'label' => Yii::$app->user->isGuest
+            ? 'Đăng nhập'
+            : 'Đăng xuất (' . Yii::$app->user->identity->username . ')',
+
+        'url' => Yii::$app->user->isGuest
+            ? ['/site/login']
+            : ['/site/logout'],
+
+        'linkOptions' => Yii::$app->user->isGuest
+            ? []
+            : ['data-method' => 'post'],
+    ],
+]
 
 ?>
 <header id="header">

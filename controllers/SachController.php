@@ -7,9 +7,54 @@ use yii\helpers\ArrayHelper;
 use app\models\Sach;
 use app\models\LoaiSach;
 use yii\web\UploadedFile;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 
 class SachController extends Controller
 {
+
+    
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::class,
+                'only' => [
+                    'index',
+                    'view',
+                    'create',
+                    'update',
+                    'delete',
+                ],
+                'rules' => [
+                    // Người đã đăng nhập được xem sách
+                    [
+                        'allow' => true,
+                        'actions' => ['index', 'view'],
+                        'roles' => ['@'],
+                    ],
+
+                    // Chỉ admin được thêm, sửa, xóa
+                    [
+                        'allow' => true,
+                        'actions' => ['create', 'update', 'delete'],
+                        'matchCallback' => function ($rule, $action) {
+                            return !Yii::$app->user->isGuest
+                                && Yii::$app->user->identity->role === 'admin';
+                        },
+                    ],
+                ],
+            ],
+
+            'verbs' => [
+                'class' => VerbFilter::class,
+                'actions' => [
+                    'delete' => ['POST'],
+                ],
+            ],
+        ];
+    }
+
     // Danh sách sách
     public function actionIndex()
     {
@@ -148,5 +193,47 @@ class SachController extends Controller
             'loaiSach' => $loaiSach,
         ]);
     }
+
+    
+    
+public function actionDelete($id)
+{
+    // Chỉ cho phép xóa bằng phương thức POST
+    if (!Yii::$app->request->isPost) {
+        throw new \yii\web\BadRequestHttpException(
+            'Yêu cầu không hợp lệ. Vui lòng thực hiện thao tác xóa từ danh sách.'
+        );
+    }
+
+    // Tìm sách theo mã sách
+    $model = Sach::findOne(['ma_sach' => $id]);
+
+    // Nếu không tìm thấy sách
+    if ($model === null) {
+        throw new \yii\web\NotFoundHttpException(
+            'Không tìm thấy sách cần xóa.'
+        );
+    }
+
+    // Lưu tên sách để thông báo
+    $tenSach = $model->nhan_de;
+
+    // Thực hiện xóa
+    if ($model->delete() !== false) {
+        Yii::$app->session->setFlash(
+            'success',
+            'Đã xóa sách "' . $tenSach . '" thành công!'
+        );
+    } else {
+        Yii::$app->session->setFlash(
+            'error',
+            'Không thể xóa sách. Vui lòng thử lại.'
+        );
+    }
+
+    // Quay về danh sách
+    return $this->redirect(['index']);
+}
+
 
 }

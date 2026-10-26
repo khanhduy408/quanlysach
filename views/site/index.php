@@ -1,207 +1,154 @@
-<?php
 
-/** @var yii\web\View $this */
+<?php
 
 use yii\helpers\Html;
 
-$this->title = 'My Yii Application';
-$this->params['meta_description'] = 'A high-performance PHP framework best for developing web applications. Fast, secure, and professional.';
-$this->params['meta_keywords'] = 'yii, yii2, php, framework, web application, high-performance';
+$this->title = 'Trang chủ - Quản lý sách';
 ?>
+
 <div class="site-index">
 
-    <!-- Hero banner with Yii gradient -->
-    <div class="hero-banner text-white rounded-4 p-5 mb-4 position-relative overflow-hidden">
-        <?= Html::img(Yii::getAlias('@web/images/yii3_full_white_for_dark.svg'), [
-            'alt' => '',
-            'class' => 'd-none d-lg-block position-absolute hero-logo',
-        ]) ?>
-        <div class="position-relative">
-            <h1 class="display-5 fw-bold mb-3">Build with Yii Framework</h1>
-            <p class="lead opacity-75 mb-4 hero-lead">
-                A high-performance PHP framework best for developing web applications.
-                Fast, secure, and professional.
-            </p>
-            <div class="d-flex gap-2 flex-wrap">
+    <!-- Banner chào mừng -->
+    <div class="p-4 p-md-5 mb-4 rounded-4 text-white shadow"
+         style="background: linear-gradient(135deg, #173b63, #2876a8);">
+
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <span class="badge bg-light text-primary mb-3">
+                    HỆ THỐNG QUẢN LÝ
+                </span>
+
+                <h1 class="display-5 fw-bold">
+                    Quản lý sách
+                </h1>
+
+                <p class="fs-5 mt-3 mb-4">
+                    Quản lý thông tin sách một cách đơn giản,
+                    trực quan và hiệu quả.
+                </p>
+
                 <?= Html::a(
-                    'Get Started',
-                    'https://www.yiiframework.com/doc/guide/2.0/en/start-installation',
-                    [
-                        'class' => 'btn btn-light btn-lg fw-semibold px-4',
-                        'rel' => 'noopener',
-                        'target' => '_blank',
-                    ],
+                    'Xem danh sách sách →',
+                    ['/sach/index'],
+                    ['class' => 'btn btn-light btn-lg fw-semibold']
                 ) ?>
-                <?= Html::a(
-                    'API Reference',
-                    'https://www.yiiframework.com/doc/api/2.0',
-                    [
-                        'class' => 'btn btn-outline-light btn-lg px-4',
-                        'rel' => 'noopener',
-                        'target' => '_blank',
-                    ],
-                ) ?>
+            </div>
+
+            <div class="col-md-4 text-center mt-4 mt-md-0">
+                <div style="font-size: 100px;">📚</div>
+                <p class="mb-0 opacity-75">
+                    Không gian quản lý sách
+                </p>
             </div>
         </div>
     </div>
 
-    <!-- Extensions grid -->
-    <div class="row g-3">
+    <!-- Tiêu đề chức năng -->
+    <div class="mb-4">
+        <h2 class="fw-bold">Chức năng hệ thống</h2>
+        <p class="text-secondary">
+            Các chức năng chính của ứng dụng quản lý sách.
+        </p>
+    </div>
+
+    <div class="row g-4">
+
+        <!-- Danh sách sách -->
         <div class="col-md-6 col-lg-4">
-            <div class="card h-100 border-0 shadow-sm rounded-3 extension-card">
-                <div class="card-body">
-                    <div class="d-flex align-items-center mb-3">
-                        <span class="extension-icon" aria-hidden="true">&#128270;</span>
-                        <h3 class="h6 fw-bold mb-0 ms-2">yii2-debug</h3>
-                    </div>
-                    <p class="text-body-secondary small mb-0">
-                        Debug toolbar and debugger for Yii2. Inspect logs, database queries,
-                        request data, and application performance in real time.
+            <div class="card h-100 border-0 shadow-sm rounded-4">
+                <div class="card-body p-4">
+                    <div class="fs-1 mb-3">📖</div>
+
+                    <h5 class="fw-bold">Danh sách sách</h5>
+
+                    <p class="text-secondary">
+                        Xem thông tin sách, tác giả, nhà xuất bản,
+                        loại sách và giá bìa.
                     </p>
-                </div>
-                <div class="card-footer bg-transparent border-0 pt-0">
+
                     <?= Html::a(
-                        'Learn more &raquo;',
-                        'https://www.yiiframework.com/extension/yiisoft/yii2-debug',
-                        [
-                            'class' => 'btn btn-sm btn-outline-secondary',
-                            'rel' => 'noopener',
-                            'target' => '_blank',
-                        ],
+                        'Xem danh sách',
+                        ['/sach/index'],
+                        ['class' => 'btn btn-primary']
                     ) ?>
                 </div>
             </div>
         </div>
 
+        <!-- Thêm sách -->
         <div class="col-md-6 col-lg-4">
-            <div class="card h-100 border-0 shadow-sm rounded-3 extension-card">
-                <div class="card-body">
-                    <div class="d-flex align-items-center mb-3">
-                        <span class="extension-icon" aria-hidden="true">&#9881;</span>
-                        <h3 class="h6 fw-bold mb-0 ms-2">yii2-gii</h3>
-                    </div>
-                    <p class="text-body-secondary small mb-0">
-                        Automatic code generator for models, controllers, CRUD, forms, and modules.
-                        Boost your productivity with scaffolding.
+            <div class="card h-100 border-0 shadow-sm rounded-4">
+                <div class="card-body p-4">
+                    <div class="fs-1 mb-3">➕</div>
+
+                    <h5 class="fw-bold">Thêm sách mới</h5>
+
+                    <p class="text-secondary">
+                        Nhập thông tin và bổ sung sách mới
+                        vào cơ sở dữ liệu.
                     </p>
-                </div>
-                <div class="card-footer bg-transparent border-0 pt-0">
-                    <?= Html::a(
-                        'Learn more &raquo;',
-                        'https://www.yiiframework.com/extension/yiisoft/yii2-gii',
-                        [
-                            'class' => 'btn btn-sm btn-outline-secondary',
-                            'rel' => 'noopener',
-                            'target' => '_blank',
-                        ],
-                    ) ?>
+
+                    <?php if (
+                        !Yii::$app->user->isGuest
+                        && Yii::$app->user->identity->role === 'admin'
+                    ): ?>
+                        <?= Html::a(
+                            'Thêm sách',
+                            ['/sach/create'],
+                            ['class' => 'btn btn-success']
+                        ) ?>
+                    <?php else: ?>
+                        <span class="text-secondary small">
+                            Dành cho quản trị viên
+                        </span>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
 
+        <!-- Phân quyền -->
         <div class="col-md-6 col-lg-4">
-            <div class="card h-100 border-0 shadow-sm rounded-3 extension-card">
-                <div class="card-body">
-                    <div class="d-flex align-items-center mb-3">
-                        <span class="extension-icon" aria-hidden="true">&#128203;</span>
-                        <h3 class="h6 fw-bold mb-0 ms-2">yii2-queue</h3>
-                    </div>
-                    <p class="text-body-secondary small mb-0">
-                        Asynchronous job queue with support for DB, Redis, AMQP, Beanstalk,
-                        and SQS drivers. Run background tasks with ease.
+            <div class="card h-100 border-0 shadow-sm rounded-4">
+                <div class="card-body p-4">
+                    <div class="fs-1 mb-3">🔐</div>
+
+                    <h5 class="fw-bold">Quản lý quyền truy cập</h5>
+
+                    <p class="text-secondary">
+                        Phân biệt quyền quản trị viên và người xem
+                        trong quá trình sử dụng hệ thống.
                     </p>
-                </div>
-                <div class="card-footer bg-transparent border-0 pt-0">
-                    <?= Html::a(
-                        'Learn more &raquo;',
-                        'https://www.yiiframework.com/extension/yiisoft/yii2-queue',
-                        [
-                            'class' => 'btn btn-sm btn-outline-secondary',
-                            'rel' => 'noopener',
-                            'target' => '_blank',
-                        ],
-                    ) ?>
+
+                    <?php if (Yii::$app->user->isGuest): ?>
+                        <?= Html::a(
+                            'Đăng nhập',
+                            ['/site/login'],
+                            ['class' => 'btn btn-outline-primary']
+                        ) ?>
+                    <?php else: ?>
+                        <span class="badge bg-primary">
+                            <?= Yii::$app->user->identity->role === 'admin'
+                                ? 'Quản trị viên'
+                                : 'Người xem' ?>
+                        </span>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-6 col-lg-4">
-            <div class="card h-100 border-0 shadow-sm rounded-3 extension-card">
-                <div class="card-body">
-                    <div class="d-flex align-items-center mb-3">
-                        <span class="extension-icon" aria-hidden="true">&#9889;</span>
-                        <h3 class="h6 fw-bold mb-0 ms-2">yii2-redis</h3>
-                    </div>
-                    <p class="text-body-secondary small mb-0">
-                        Redis integration providing cache, session, and ActiveRecord support.
-                        Leverage in-memory storage for blazing-fast data access.
-                    </p>
-                </div>
-                <div class="card-footer bg-transparent border-0 pt-0">
-                    <?= Html::a(
-                        'Learn more &raquo;',
-                        'https://www.yiiframework.com/extension/yiisoft/yii2-redis',
-                        [
-                            'class' => 'btn btn-sm btn-outline-secondary',
-                            'rel' => 'noopener',
-                            'target' => '_blank',
-                        ],
-                    ) ?>
-                </div>
-            </div>
-        </div>
+    </div>
 
-        <div class="col-md-6 col-lg-4">
-            <div class="card h-100 border-0 shadow-sm rounded-3 extension-card">
-                <div class="card-body">
-                    <div class="d-flex align-items-center mb-3">
-                        <span class="extension-icon" aria-hidden="true">&#128269;</span>
-                        <h3 class="h6 fw-bold mb-0 ms-2">yii2-elasticsearch</h3>
-                    </div>
-                    <p class="text-body-secondary small mb-0">
-                        Elasticsearch integration with ActiveRecord and query builder.
-                        Add powerful full-text search capabilities to your application.
-                    </p>
-                </div>
-                <div class="card-footer bg-transparent border-0 pt-0">
-                    <?= Html::a(
-                        'Learn more &raquo;',
-                        'https://www.yiiframework.com/extension/yiisoft/yii2-elasticsearch',
-                        [
-                            'class' => 'btn btn-sm btn-outline-secondary',
-                            'rel' => 'noopener',
-                            'target' => '_blank',
-                        ],
-                    ) ?>
-                </div>
-            </div>
-        </div>
+    <!-- Phần giới thiệu -->
+    <div class="mt-5 p-4 rounded-4"
+         style="background-color: #f1f5f9;">
 
-        <div class="col-md-6 col-lg-4">
-            <div class="card h-100 border-0 shadow-sm rounded-3 extension-card">
-                <div class="card-body">
-                    <div class="d-flex align-items-center mb-3">
-                        <span class="extension-icon" aria-hidden="true">&#9993;</span>
-                        <h3 class="h6 fw-bold mb-0 ms-2">yii2-symfonymailer</h3>
-                    </div>
-                    <p class="text-body-secondary small mb-0">
-                        Email sending integration powered by Symfony Mailer.
-                        Compose and deliver rich HTML emails with attachments and templates.
-                    </p>
-                </div>
-                <div class="card-footer bg-transparent border-0 pt-0">
-                    <?= Html::a(
-                        'Learn more &raquo;',
-                        'https://github.com/yiisoft/yii2-symfonymailer',
-                        [
-                            'class' => 'btn btn-sm btn-outline-secondary',
-                            'rel' => 'noopener',
-                            'target' => '_blank',
-                        ],
-                    ) ?>
-                </div>
-            </div>
-        </div>
+        <h4 class="fw-bold">Giới thiệu hệ thống</h4>
+
+        <p class="mb-0 text-secondary">
+            Hệ thống được xây dựng bằng PHP và framework Yii2,
+            kết nối cơ sở dữ liệu MySQL, hỗ trợ các thao tác
+            xem, thêm, sửa và xóa thông tin sách.
+        </p>
     </div>
 
 </div>

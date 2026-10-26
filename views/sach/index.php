@@ -7,28 +7,19 @@ $this->title = 'Danh sách sách';
 
 <div class="container mt-4">
     <h2 class="mb-4">DANH SÁCH SÁCH</h2>
-    
-        <?php if (Yii::$app->session->hasFlash('success')): ?>
-            <div class="alert alert-success alert-dismissible fade show"
-                role="alert">
-                <?= Html::encode(
-                    Yii::$app->session->getFlash('success')
-                ) ?>
 
-                <button type="button"
-                        class="btn-close"
-                        data-bs-dismiss="alert"
-                        aria-label="Đóng"></button>
-            </div>
-        <?php endif; ?>
-
-    <div class="mb-3 text-end">
-    <?= Html::a(
-        'Thêm sách mới',
-        ['create'],
-        ['class' => 'btn btn-primary btn-lg px-4']
-    ) ?>
-</div>
+    <?php if (
+        !Yii::$app->user->isGuest
+        && Yii::$app->user->identity->role === 'admin'
+    ): ?>
+        <div class="mb-3 text-end">
+            <?= Html::a(
+                'Thêm sách mới',
+                ['create'],
+                ['class' => 'btn btn-primary btn-lg px-4']
+            ) ?>
+        </div>
+    <?php endif; ?>
 
     <div class="table-responsive">
         <table class="table table-bordered table-striped table-hover align-middle">
@@ -104,26 +95,41 @@ $this->title = 'Danh sách sách';
                             <td><?= Html::encode($sach->so_luong) ?></td>
                             <td class="text-center">
                                 
-                            <div class="d-flex flex-column gap-2">
+                                <div class="d-flex flex-column gap-2">
 
-                                <?= Html::a(
-                                    'Xem',
-                                    ['view', 'id' => $sach->ma_sach],
-                                    [
-                                        'class' => 'btn btn-primary',
-                                        'style' => 'font-size: 12px;'
-                                    ]
-                                ) ?>
+                                    <?= Html::a(
+                                        'Xem',
+                                        ['view', 'id' => $sach->ma_sach],
+                                        [
+                                            'class' => 'btn btn-primary',
+                                            'style' => 'font-size: 12px;'
+                                        ]
+                                    ) ?>
 
-                                <?= Html::a(
-                                    'Sửa',
-                                    ['update', 'id' => $sach->ma_sach],
-                                    [
-                                        'class' => 'btn btn-warning',
-                                        'style' => 'font-size: 12px;',
-                                        'data-pjax' => '0'
-                                    ]
-                                ) ?>
+                                    <?php if (
+                                    !Yii::$app->user->isGuest
+                                    && Yii::$app->user->identity->role === 'admin'
+                                ): ?>
+
+                                    <?= Html::a(
+                                        'Sửa',
+                                        ['update', 'id' => $sach->ma_sach],
+                                        ['class' => 'btn btn-warning']
+                                    ) ?>
+
+                                    <?= Html::a(
+                                        'Xóa',
+                                        ['delete', 'id' => $sach->ma_sach],
+                                        [
+                                            'class' => 'btn btn-danger',
+                                            'data-method' => 'post',
+                                            'data-confirm' => 'Bạn có chắc chắn muốn xóa sách này không?',
+                                        ]
+                                    ) ?>
+
+                                <?php endif; ?>
+
+                                </div>
 
                             </div>
 
