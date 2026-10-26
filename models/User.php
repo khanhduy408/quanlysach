@@ -9,27 +9,28 @@ use yii\web\IdentityInterface;
 
 class User extends BaseObject implements IdentityInterface
 {
-    public int|string $id = '';
+    private $_id;
     public string $username = '';
     public string $passwordHash = '';
     public string $authKey = '';
     public string $accessToken = '';
+    public string $role = 'viewer';
     private static array $_users = [
-        '100' => [
+       '100' => [
             'id' => '100',
             'username' => 'admin',
-            // password: admin
             'passwordHash' => '$2y$13$gYAywKSkhfZDq9FLNdm7buKnvlRxDexf5xipSMAxQPDUxpaptmZJu',
             'authKey' => 'test100key',
             'accessToken' => '100-token',
+            'role' => 'admin',
         ],
-        '101' => [
+       '101' => [
             'id' => '101',
             'username' => 'demo',
-            // password: demo
             'passwordHash' => '$2y$13$alRLq1PGVMlGYwS/Y3iy3ewQns1Z8ol8Iq6Zb5k7ZwEhblA1aL29y',
             'authKey' => 'test101key',
             'accessToken' => '101-token',
+            'role' => 'viewer',
         ],
     ];
     /**
@@ -74,9 +75,14 @@ class User extends BaseObject implements IdentityInterface
     /**
      * {@inheritdoc}
      */
-    public function getId(): int|string
+    public function getId()
     {
-        return $this->id;
+        return $this->_id;
+    }
+
+    public function setId($id)
+    {
+        $this->_id = $id;
     }
 
     /**
