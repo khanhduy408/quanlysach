@@ -19,11 +19,14 @@ use yii\widgets\ActiveForm;
     <div class="row">
 
         <div class="col-md-6">
+            
             <?= $form->field($model, 'ma_sach')
                 ->textInput([
                     'maxlength' => true,
-                    'placeholder' => 'Nhập mã sách'
+                    'placeholder' => 'Nhập mã sách',
+                    'readonly' => !$model->isNewRecord,
                 ]) ?>
+
         </div>
 
         <div class="col-md-6">
@@ -101,10 +104,12 @@ use yii\widgets\ActiveForm;
     </div>
 
     <div class="form-group mt-3">
+        
         <?= Html::submitButton(
-            'Lưu sách',
+            $model->isNewRecord ? 'Thêm sách' : 'Cập nhật sách',
             ['class' => 'btn btn-success']
         ) ?>
+
 
         <?= Html::a(
             'Quay lại',
