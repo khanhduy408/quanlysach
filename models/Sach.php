@@ -65,20 +65,15 @@ class Sach extends ActiveRecord
 
             // Kiểm tra file ảnh tải lên
             [
-                ['fileAnh'],
-                'image',
-                'extensions' => ['jpg', 'jpeg', 'png', 'webp'],
-                'mimeTypes' => [
-                    'image/jpeg',
-                    'image/png',
-                    'image/webp'
-                ],
-                'maxSize' => 2 * 1024 * 1024,
-                'skipOnEmpty' => true,
-                'tooBig' => 'Dung lượng ảnh không được vượt quá 2 MB.',
-                'wrongExtension' => 'Chỉ chấp nhận ảnh JPG, JPEG, PNG hoặc WEBP.',
-                'wrongMimeType' => 'Định dạng ảnh không hợp lệ.'
-            ]
+            ['fileAnh'],
+            'file',
+            'extensions' => ['jpg', 'jpeg', 'png', 'webp'],
+            'checkExtensionByMimeType' => false,
+            'maxSize' => 2 * 1024 * 1024,
+            'skipOnEmpty' => true,
+            'wrongExtension' => 'Chỉ chấp nhận ảnh JPG, JPEG, PNG hoặc WEBP.',
+            'tooBig' => 'Dung lượng ảnh không được vượt quá 2 MB.',
+        ]
         ];
     }
 

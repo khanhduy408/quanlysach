@@ -9,12 +9,15 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="sach-form">
-
+<?= $form = null ?>
     <?php $form = ActiveForm::begin([
         'options' => [
             'enctype' => 'multipart/form-data'
         ]
     ]); ?>
+    <?= $form->errorSummary($model, [
+    'class' => 'alert alert-danger'
+]) ?>
 
     <div class="row">
 
